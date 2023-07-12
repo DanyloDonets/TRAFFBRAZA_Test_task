@@ -76,7 +76,7 @@ class WebView : AppCompatActivity() {
 
             if (url != null) {
                 if (url.contains("fex.net")) {
-                    Log.i("appsFyer", "send")
+                    Log.i("RD_", "send")
                     AppsFlyerLib.getInstance().logEvent(applicationContext, "fexnet_event", null)
                 }
             }
