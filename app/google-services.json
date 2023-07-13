@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "828972207205",
+    "project_id": "danylo-donets-test-app",
+    "storage_bucket": "danylo-donets-test-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828972207205:android:52d5064741e1438e8e8a8c",
+        "android_client_info": {
+          "package_name": "donets.danylo.testtask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828972207205-kjq4ei0938nprtcf7a0dpc4d6g6m17sb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWnkDr8G1vQM1hqPiQ3OuIdG6XPZpInD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828972207205-kjq4ei0938nprtcf7a0dpc4d6g6m17sb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
