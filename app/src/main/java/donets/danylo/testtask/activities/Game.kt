@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import donets.danylo.testtask.R
 import donets.danylo.testtask.databinding.ActivityGameBinding
 
 class Game : AppCompatActivity()
 {
-
     enum class Turn
     {
         NOUGHT,
@@ -26,22 +26,26 @@ class Game : AppCompatActivity()
 
     private var boardList = mutableListOf<Button>()
 
-    private lateinit var binding:ActivityGameBinding
+    private lateinit var binding : ActivityGameBinding
+
+    lateinit var backBtn : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         initBoard()
 
-        binding.backBtn.setOnClickListener {
+        backBtn = findViewById(R.id.backBtn)
+
+        backBtn.setOnClickListener {
             setContentView(R.layout.activity_main)
             val intent = Intent(this@Game, MainActivity::class.java)
             startActivity(intent)
         }
     }
+
     private fun initBoard()
     {
         boardList.add(binding.a1)
@@ -55,27 +59,33 @@ class Game : AppCompatActivity()
         boardList.add(binding.c3)
     }
 
-    fun boardTapped(view: View){
+    fun boardTapped(view: View)
+    {
         if(view !is Button)
-           return
-        addBoard(view)
+            return
+        addToBoard(view)
 
-        if(checkForVictory(NOUGHT)){
+        if(checkForVictory(NOUGHT))
+        {
             noughtsScore++
             result("Noughts Win!")
         }
-        if(checkForVictory(CROSS)){
+        else if(checkForVictory(CROSS))
+        {
             crossesScore++
             result("Crosses Win!")
         }
 
-        if(fullBoard()){
+        if(fullBoard())
+        {
             result("Draw")
         }
 
     }
 
-    private fun checkForVictory(s: String): Boolean {
+    private fun checkForVictory(s: String): Boolean
+    {
+        //Horizontal Victory
         if(match(binding.a1,s) && match(binding.a2,s) && match(binding.a3,s))
             return true
         if(match(binding.b1,s) && match(binding.b2,s) && match(binding.b3,s))
@@ -91,6 +101,7 @@ class Game : AppCompatActivity()
         if(match(binding.a3,s) && match(binding.b3,s) && match(binding.c3,s))
             return true
 
+
         if(match(binding.a1,s) && match(binding.b2,s) && match(binding.c3,s))
             return true
         if(match(binding.a3,s) && match(binding.b2,s) && match(binding.c1,s))
@@ -99,7 +110,7 @@ class Game : AppCompatActivity()
         return false
     }
 
-    private fun match(button: Button, symbol: String): Boolean = button.text == symbol
+    private fun match(button: Button, symbol : String): Boolean = button.text == symbol
 
     private fun result(title: String)
     {
@@ -115,59 +126,63 @@ class Game : AppCompatActivity()
             .show()
     }
 
-    private fun resetBoard() {
-        for(button in boardList){
+    private fun resetBoard()
+    {
+        for(button in boardList)
+        {
             button.text = ""
         }
 
-        if (firstTurn == Turn.NOUGHT)
+        if(firstTurn == Turn.NOUGHT)
             firstTurn = Turn.CROSS
-
-        else if (firstTurn == Turn.CROSS)
+        else if(firstTurn == Turn.CROSS)
             firstTurn = Turn.NOUGHT
 
         currentTurn = firstTurn
         setTurnLabel()
-
     }
 
-    private fun fullBoard(): Boolean {
-        for(button in boardList){
-            if (button.text == "")
+    private fun fullBoard(): Boolean
+    {
+        for(button in boardList)
+        {
+            if(button.text == "")
                 return false
-
-
         }
         return true
     }
 
-    private fun addBoard(button: Button){
+    private fun addToBoard(button: Button)
+    {
         if(button.text != "")
             return
 
-        if(currentTurn == Turn.NOUGHT ){
+        if(currentTurn == Turn.NOUGHT)
+        {
             button.text = NOUGHT
             currentTurn = Turn.CROSS
         }
-        else if(currentTurn == Turn.CROSS ){
+        else if(currentTurn == Turn.CROSS)
+        {
             button.text = CROSS
             currentTurn = Turn.NOUGHT
         }
         setTurnLabel()
     }
 
-    private fun setTurnLabel(){
+    private fun setTurnLabel()
+    {
         var turnText = ""
         if(currentTurn == Turn.CROSS)
-            turnText =="Turn $CROSS"
-
+            turnText = "Turn $CROSS"
         else if(currentTurn == Turn.NOUGHT)
-            turnText == "Turn $NOUGHT"
+            turnText = "Turn $NOUGHT"
 
-       binding.turnTV.text = turnText
+        binding.turnTV.text = turnText
     }
 
-    companion object{
+    companion object
+    {
         const val NOUGHT = "O"
         const val CROSS = "X"
     }

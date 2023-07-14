@@ -22,16 +22,34 @@
     </style>
 
     <style name="verticalLine">
-        <item name="android:background">@color/black</item>
+        <item name="android:background">@color/button_color</item>
         <item name="android:layout_width">5dp</item>
         <item name="android:layout_height">match_parent</item>
 
     </style>
 
     <style name="horizontalLine">
-        <item name="android:background">@color/black</item>
+        <item name="android:background">@color/button_color</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">5dp</item>
+
+    </style>
+
+
+    <style name="windowstyle">
+        <item name="background">@color/background</item>
+    </style>
+
+    <style name="buttons">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="background">@drawable/rounded_rectangle</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20dp</item>
+
+
+
+
 
     </style>
 
