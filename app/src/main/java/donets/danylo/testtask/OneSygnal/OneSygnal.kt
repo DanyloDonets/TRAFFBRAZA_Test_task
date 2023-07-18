@@ -33,6 +33,7 @@ class OneSignal(private val context: Context) {
             val intent = Intent(context, WebView::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
+
         }
     }
 }

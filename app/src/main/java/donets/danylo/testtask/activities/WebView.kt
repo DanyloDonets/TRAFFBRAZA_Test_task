@@ -37,6 +37,9 @@ class WebView : AppCompatActivity() {
         webView.webViewClient = MyWebViewClient()
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
+        webView.settings.domStorageEnabled = true
+        webView.settings.allowContentAccess = true
+        webView.settings.allowFileAccess = true
 
         mainActivityIntent = Intent(this, MainActivity::class.java)
 
@@ -46,6 +49,7 @@ class WebView : AppCompatActivity() {
 
         webView.setDownloadListener({ url, userAgent, contentDisposition, mimeType, contentLength ->
             val request = DownloadManager.Request(Uri.parse(url))
+
             request.setMimeType(mimeType)
             request.addRequestHeader("cookie", CookieManager.getInstance().getCookie(url))
             request.addRequestHeader("User-Agent", userAgent)
@@ -61,6 +65,8 @@ class WebView : AppCompatActivity() {
 
 
 
+
+
     // Додати кнопку "Назад" до панелі дій
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -70,9 +76,10 @@ class WebView : AppCompatActivity() {
 
         if (webView.url == initialUrl) {
 
-            setContentView(R.layout.activity_main)
+
             val intent = Intent(this@WebView, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
         else if (webView.canGoBack()) {
             webView.goBack()
@@ -84,13 +91,7 @@ class WebView : AppCompatActivity() {
         }
 
 
-    override fun onStop() {
-        super.onStop()
-        val sharedPreferences = getSharedPreferences("WebViewHistoryPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("lastUrl", webView.url)
-        editor.apply()
-    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -101,6 +102,10 @@ class WebView : AppCompatActivity() {
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
             title = view?.title
+            val sharedPreferences = getSharedPreferences("WebViewHistoryPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("lastUrl", webView.url)
+            editor.apply()
 
             if (url != null) {
                 if (url.contains("fex.net")) {
@@ -114,3 +119,4 @@ class WebView : AppCompatActivity() {
         }
     }
 }
+

@@ -1,20 +1,17 @@
 package donets.danylo.testtask.AppsFlyer
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
 import com.appsflyer.AppsFlyerConversionListener
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineScope
 
 private const val FLYER_DEV_KEY = "uzAQueXY9w3qzJYNRG9K5Q"
 
 class AppsFlyer {
     fun init(context: Context) {
-        GlobalScope.launch(Dispatchers.IO) {
+
             AppsFlyerLib.getInstance()
                 .init(
                     FLYER_DEV_KEY,
@@ -55,5 +52,5 @@ class AppsFlyer {
                     }
                 )
         }
-    }
+
 }
